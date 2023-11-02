@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "adress")
-public class Adress {
+public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -18,8 +18,12 @@ public class Adress {
     private String zipCode;
     private String city;
 
-    public Adress(String street, String neighborhood,
-                  String number, String complement, String zipCode, String city) {
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+
+    public Address(String street, String neighborhood,
+                   String number, String complement, String zipCode, String city) {
         this.street = street;
         this.neighborhood = neighborhood;
         this.number = number;
@@ -28,7 +32,23 @@ public class Adress {
         this.city = city;
     }
 
-    public Adress() {
+    public Address() {
+    }
+
+    public String getAddresId() {
+        return addresId;
+    }
+
+    public void setAddresId(String addresId) {
+        this.addresId = addresId;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getStreet() {
