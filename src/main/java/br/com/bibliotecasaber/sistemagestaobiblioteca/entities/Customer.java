@@ -1,5 +1,6 @@
 package br.com.bibliotecasaber.sistemagestaobiblioteca.entities;
 
+import br.com.bibliotecasaber.sistemagestaobiblioteca.DTOs.CreateCustomerDTO;
 import br.com.bibliotecasaber.sistemagestaobiblioteca.enums.Role;
 import br.com.bibliotecasaber.sistemagestaobiblioteca.enums.Status;
 import jakarta.persistence.*;
@@ -34,6 +35,13 @@ public class Customer {
         this.addresses = addresses;
         this.status = Status.ACTIVE;
         this.role = Role.NORMAL_USER;
+    }
+
+    public Customer(CreateCustomerDTO customer) {
+        setFirstName(customer.firstName());
+        setLastName(customer.lastName());
+        setEmail(customer.email());
+        setAddresses(customer.addresses());
     }
 
     public Customer() {
