@@ -13,30 +13,27 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "customer_id")
-    private Long customerId;
+    private String customerId;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
     private String email;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private List<Adress> adress;
-
+    @OneToMany(mappedBy = "customer")
+    private List<Address> addresses;
     @Enumerated(EnumType.STRING)
     private Status status;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Customer(String firstName, String lastName,
-                    String email, List<Adress> adress, Status status, Role role) {
+    public Customer(String firstName, String lastName, String email,
+                    List<Address> addresses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.adress = adress;
-        this.status = status;
-        this.role = role;
+        this.addresses = addresses;
+        this.status = Status.ACTIVE;
+        this.role = Role.NORMAL_USER;
     }
 
     public Customer() {
@@ -66,13 +63,22 @@ public class Customer {
         this.email = email;
     }
 
-    public List<Adress> getAdress() {
-        return adress;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setAdress(List<Adress> adress) {
-        this.adress = adress;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
 
     public Status getStatus() {
         return status;
